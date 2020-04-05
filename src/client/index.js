@@ -1,5 +1,6 @@
 import { checkForName } from './js/nameChecker';
 import { handleSubmit } from './js/formHandler';
+import { handleClick } from './js/clickHandler';
 
 import './styles/resets.scss';
 import './styles/base.scss';
@@ -8,4 +9,4 @@ import './styles/form.scss';
 import './styles/header.scss';
 
 // export the js to the library
-export { checkForName, handleSubmit };
+export { checkForName, handleSubmit, handleClick };
