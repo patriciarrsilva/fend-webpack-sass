@@ -4,7 +4,12 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
+  devtool: 'source-map',
   entry: './src/client/index.js',
+  output: {
+    libraryTarget: 'var',
+    library: 'Client', // the js code is going to be accessible from this library (Client)
+  },
   module: {
     rules: [
       {
@@ -24,5 +29,4 @@ module.exports = {
       filename: './index.html',
     }),
   ],
-  devtool: 'source-map',
 };
