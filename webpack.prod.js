@@ -1,39 +1,21 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = {
+module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
-  entry: './src/client/index.js',
   optimization: {
-    minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
-  },
-  output: {
-    libraryTarget: 'var',
-    library: 'Client', // the js code is going to be accessible from this library (Client)
+    minimizer: [new OptimizeCSSAssetsPlugin({})],
   },
   module: {
     rules: [
-      {
-        test: '/.js$/',
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-      },
       {
         test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/client/views/index.html',
-      filename: './index.html',
-    }),
-    new MiniCssExtractPlugin({ filename: '[name].css' }),
-  ],
-};
+  plugins: [new MiniCssExtractPlugin({ filename: '[name].css' })],
+});
